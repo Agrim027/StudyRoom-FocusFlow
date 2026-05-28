@@ -2,6 +2,11 @@ FROM eclipse-temurin:17-jdk
 
 WORKDIR /app
 
-COPY target/*.jar app.jar
+# Copy full backend project
+COPY . .
 
-ENTRYPOINT ["java", "-jar", "app.jar"]
+# Build the jar inside container
+RUN ./mvnw clean package -DskipTests
+
+# Run the jar
+ENTRYPOINT ["sh", "-c", "java -jar target/*.jar"]
