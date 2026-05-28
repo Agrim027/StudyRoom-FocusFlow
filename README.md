@@ -9,27 +9,22 @@ The Collaborative Study Room Platform allows users to create virtual study space
 ## 🚀 Features Implemented
 
 * **User Authentication**
-
   * Secure signup and login using JWT-based authentication
   * Protected routes and session handling
 
 * **Study Room Management**
-
   * Create and join study rooms
   * View available rooms in real time
 
-* **Real-time Chat**
-
+* **Real-time Chat & Focus Zones**
   * Instant communication between participants
   * Powered by WebSockets for live updates
 
 * **Session Timer**
-
   * Track study sessions using a built-in timer
   * Helps maintain focus and consistency
 
 * **Activity Dashboard**
-
   * View past sessions and study activity
   * Track productivity over time
 
@@ -43,7 +38,6 @@ The Collaborative Study Room Platform allows users to create virtual study space
 | Backend    | Java, Spring Boot              |
 | Database   | MongoDB Atlas                  |
 | Realtime   | WebSockets (STOMP)             |
-| Deployment | (To be added after deployment) |
 
 ---
 
@@ -51,108 +45,46 @@ The Collaborative Study Room Platform allows users to create virtual study space
 
 ### 🔧 Backend Setup
 
-```bash
-cd backend
-./mvnw clean install
-```
+1. **Navigate to the backend directory and build the project:**
+   ```bash
+   cd backend
+   ./mvnw clean install
+   ```
 
-Create `.env` file:
-
-```env
-MONGODB_URI=your_mongodb_atlas_uri
-JWT_SECRET=your_secret_key
-```
-
-Run backend:
-
-```bash
-./mvnw spring-boot:run
-```
-
----
+2. **Run the Spring Boot server:**
+   ```bash
+   ./mvnw spring-boot:run
+   ```
 
 ### 💻 Frontend Setup
 
-```bash
-cd frontend
-npm install
-```
+1. **Navigate to the frontend directory and install dependencies:**
+   ```bash
+   cd frontend
+   npm install
+   ```
 
-Create `.env` file:
-
-```env
-VITE_API_URL=http://localhost:8080/api
-```
-
-Run frontend:
-
-```bash
-npm run dev
-```
+2. **Run the React development server:**
+   ```bash
+   npm run dev
+   ```
 
 ---
 
 ## 🔐 Environment Variables
 
-### Backend (`backend/.env`)
+To run this project locally, you will need to configure your environment variables. 
 
+**Backend** (Create a `.env` file in the `backend/` directory):
 ```env
 MONGODB_URI=your_mongodb_atlas_uri
 JWT_SECRET=your_secret_key
 ```
 
-### Frontend (`frontend/.env`)
-
+**Frontend** (Create a `.env` file in the `frontend/` directory):
 ```env
 VITE_API_URL=http://localhost:8080/api
 ```
-
----
-
-## 🌐 Deployment Steps
-
-### Backend (Render / Railway)
-
-* Connect GitHub repository
-* Build Command:
-
-  ```bash
-  ./mvnw clean package -DskipTests
-  ```
-* Start Command:
-
-  ```bash
-  java -jar target/*.jar
-  ```
-* Add environment variables in dashboard
-
----
-
-### Frontend (Vercel / Netlify)
-
-* Connect frontend directory
-* Build Command:
-
-  ```bash
-  npm run build
-  ```
-* Output Directory:
-
-  ```bash
-  dist
-  ```
-* Set environment variable:
-
-  ```env
-  VITE_API_URL=https://your-backend-url.com/api
-  ```
-
----
-
-### 🔗 Connecting Frontend & Backend
-
-* Update backend CORS to allow deployed frontend URL
-* Ensure frontend API URL matches deployed backend
 
 ---
 
