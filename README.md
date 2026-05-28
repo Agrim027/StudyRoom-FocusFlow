@@ -170,14 +170,17 @@ VITE_API_URL=http://localhost:8080/api
 
 ## 📸 Screenshots
 
+### Login Page
+![Login UI](./screenshots/Login.png)
+
 ### Dashboard
 ![Dashboard UI](./screenshots/dashboard.png)
 
 ### Room Page
-![Room Page UI](./screenshots/room.png)
+![Room Page UI](./screenshots/room_page.png)
 
-### Chat Interface
-![Chat UI](./screenshots/chat.png)
+### Focus Zone
+![Focus Zone UI](./screenshots/Focus_Zone.png)
 
 ---
 
