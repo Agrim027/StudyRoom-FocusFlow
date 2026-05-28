@@ -1,0 +1,15 @@
+spring:
+  config:
+    import: optional:file:.env[.properties]
+  application:
+    name: backend
+  mongodb:
+    uri: ${MONGODB_URI}
+      
+server:
+  port: 8080
+
+app:
+  frontendUrl: ${FRONTEND_URL:http://localhost:5173}
+  jwtSecret: ${JWT_SECRET}
+  jwtExpirationMs: 86400000 # 24 hours
