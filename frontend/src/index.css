@@ -1,0 +1,61 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: 'Outfit', 'Inter', sans-serif;
+  --font-mono: 'Inter', monospace;
+  
+  --color-aurora-bg: #0A0A0B;
+  --color-aurora-surface: #141416;
+  --color-aurora-surface-hover: #1E1E22;
+  --color-aurora-primary: #6E56CF;
+  --color-aurora-primary-hover: #5A43AA;
+  --color-aurora-accent: #00D2D3;
+  --color-aurora-text: #EDEDED;
+  --color-aurora-text-muted: #8F8F9D;
+  --color-aurora-border: #232328;
+
+  --animate-float: float 6s ease-in-out infinite;
+  --animate-glow: glow 2s ease-in-out infinite alternate;
+  
+  @keyframes float {
+    0% { transform: translateY(0px); }
+    50% { transform: translateY(-10px); }
+    100% { transform: translateY(0px); }
+  }
+
+  @keyframes glow {
+    from { box-shadow: 0 0 10px #6E56CF40; }
+    to { box-shadow: 0 0 20px #6E56CF80, 0 0 30px #00D2D360; }
+  }
+}
+
+@layer base {
+  body {
+    @apply bg-aurora-bg text-aurora-text antialiased;
+    font-family: var(--font-sans);
+  }
+
+  /* Custom scrollbar for dark theme */
+  ::-webkit-scrollbar {
+    width: 8px;
+  }
+  ::-webkit-scrollbar-track {
+    @apply bg-aurora-bg;
+  }
+  ::-webkit-scrollbar-thumb {
+    @apply bg-aurora-border rounded-full hover:bg-aurora-surface-hover transition-colors;
+  }
+}
+
+/* Glassmorphism Utilities */
+@layer utilities {
+  .glass-panel {
+    @apply bg-aurora-surface/80 backdrop-blur-xl border border-aurora-border shadow-2xl;
+  }
+  .glass-card {
+    @apply bg-aurora-surface/60 backdrop-blur-lg border border-aurora-border shadow-lg transition-all duration-300;
+  }
+  .glass-input {
+    @apply bg-aurora-bg/50 border border-aurora-border focus:border-aurora-primary focus:ring-1 focus:ring-aurora-primary text-aurora-text placeholder-aurora-text-muted outline-none transition-all;
+  }
+}
