@@ -1,11 +1,7 @@
-# Use Java 17
-FROM openjdk:17-jdk-slim
+FROM openjdk:17-jdk
 
-# Set working directory
 WORKDIR /app
 
-# Copy jar file
 COPY target/*.jar app.jar
-
 
 ENTRYPOINT ["java", "-jar", "app.jar"]
