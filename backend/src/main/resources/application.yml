@@ -4,8 +4,8 @@ spring:
   application:
     name: backend
   mongodb:
-    uri: ${MONGODB_URI}
-    
+    uri: mongodb+srv://agrim8:agrim8@cluster0.h7iurom.mongodb.net/?appName=Cluster0
+      
 server:
   port: ${PORT:8080}
 
