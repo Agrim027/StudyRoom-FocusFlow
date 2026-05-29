@@ -22,6 +22,11 @@ const Register = () => {
     e.preventDefault();
     
     // Basic frontend validation
+    if (newUsername.length < 3) {
+      setRegistrationError('Username must be at least 3 characters long');
+      return;
+    }
+    
     if (newPassword.length < 6) {
       setRegistrationError('Password must be at least 6 characters long');
       return;
@@ -32,7 +37,8 @@ const Register = () => {
       // On success, redirect to login page
       navigate('/login');
     } catch (err) {
-      setRegistrationError(err.response?.data?.message || 'Registration failed due to a server error.');
+      const errorMessage = err.response?.data?.message || err.response?.data?.error || 'Registration failed due to a server error.';
+      setRegistrationError(errorMessage);
     }
   };
 
