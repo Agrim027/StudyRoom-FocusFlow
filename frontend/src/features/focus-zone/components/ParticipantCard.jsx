@@ -25,13 +25,25 @@ const ParticipantCard = ({ username, session }) => {
   }, [session.startTime]);
 
   const formatDuration = (startTimeIso) => {
-    if (!startTimeIso) return '00:00:00';
+    if (!startTimeIso) return '05:30:00';
+    
     const start = new Date(startTimeIso).getTime();
     const now = new Date().getTime();
-    const diff = Math.max(0, Math.floor((now - start) / 1000));
-    const h = Math.floor(diff / 3600).toString().padStart(2, '0');
-    const m = Math.floor((diff % 3600) / 60).toString().padStart(2, '0');
-    const s = (diff % 60).toString().padStart(2, '0');
+    const elapsedMs = Math.max(0, now - start);
+    
+    // 5 hours and 30 minutes in milliseconds
+    const totalDurationMs = (5 * 3600 * 1000) + (30 * 60 * 1000);
+    const remainingMs = totalDurationMs - elapsedMs;
+    
+    if (remainingMs <= 0) {
+      return '00:00:00';
+    }
+    
+    const diffSeconds = Math.floor(remainingMs / 1000);
+    const h = Math.floor(diffSeconds / 3600).toString().padStart(2, '0');
+    const m = Math.floor((diffSeconds % 3600) / 60).toString().padStart(2, '0');
+    const s = (diffSeconds % 60).toString().padStart(2, '0');
+    
     return `${h}:${m}:${s}`;
   };
 

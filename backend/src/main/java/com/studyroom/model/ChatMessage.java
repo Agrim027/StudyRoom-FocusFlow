@@ -14,6 +14,8 @@ public class ChatMessage {
     private String sender;
     private MessageType type;
     private String roomId;
+    private String replyToSender;
+    private String replyToContent;
 
     public enum MessageType {
         CHAT,

@@ -21,6 +21,7 @@ const FocusZonePage = () => {
   const [zoneDetails, setZoneDetails] = useState(null);
   const [chatMessages, setChatMessages] = useState([]);
   const [chatInput, setChatInput] = useState('');
+  const [replyTo, setReplyTo] = useState(null);
   
   // Dictionary of active sessions keyed by username
   const [activeSessions, setActiveSessions] = useState({}); 
@@ -134,23 +135,23 @@ const FocusZonePage = () => {
     }
   };
 
-  /**
-   * Submits a new chat message to the STOMP broker
-   */
   const handleSendMessage = (e) => {
     e.preventDefault();
     if (chatInput.trim() && stompClientRef.current) {
       const chatMessage = {
         sender: user.username,
-        content: chatInput,
+        content: chatInput.trim(),
         type: 'CHAT',
-        roomId: zoneId
+        roomId: zoneId,
+        replyToSender: replyTo ? replyTo.sender : null,
+        replyToContent: replyTo ? replyTo.content : null
       };
       stompClientRef.current.publish({
         destination: `/app/chat.sendMessage/${zoneId}`,
         body: JSON.stringify(chatMessage),
       });
       setChatInput('');
+      setReplyTo(null);
     }
   };
 
@@ -271,6 +272,8 @@ const FocusZonePage = () => {
             inputMessage={chatInput}
             setInputMessage={setChatInput}
             onSendMessage={handleSendMessage}
+            replyTo={replyTo}
+            setReplyTo={setReplyTo}
           />
           
         </div>
