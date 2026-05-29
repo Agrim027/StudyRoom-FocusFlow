@@ -1,43 +1,29 @@
-# Collaborative Study Room Platform
+# FocusFlow
 
-Staying consistent with study sessions can be difficult, especially when working alone. This project was built to address that challenge by creating a focused, distraction-free environment where users can study together in real time.
+A real-time productivity and study room application featuring:
 
-The Collaborative Study Room Platform allows users to create virtual study spaces, collaborate with others, and track their progress — helping recreate the experience of a real study group or library from anywhere.
-
----
-
-## 🚀 Features Implemented
-
-* **User Authentication**
-  * Secure signup and login using JWT-based authentication
-  * Protected routes and session handling
-
-* **Study Room Management**
-  * Create and join study rooms
-  * View available rooms in real time
-
-* **Real-time Chat & Focus Zones**
-  * Instant communication between participants
-  * Powered by WebSockets for live updates
-
-* **Session Timer**
-  * Track study sessions using a built-in timer
-  * Helps maintain focus and consistency
-
-* **Activity Dashboard**
-  * View past sessions and study activity
-  * Track productivity over time
+- ⏱ Focus timers
+- 💬 Live chat (WebSocket-based)
+- 👥 Room-based collaboration
+- 🔐 JWT authentication
 
 ---
 
-## 🛠️ Tech Stack
+## 🛠 Tech Stack
 
-| Layer      | Technology                     |
-| ---------- | ------------------------------ |
-| Frontend   | React.js, Tailwind CSS         |
-| Backend    | Java, Spring Boot              |
-| Database   | MongoDB Atlas                  |
-| Realtime   | WebSockets (STOMP)             |
+Frontend:
+- React (Vite)
+
+Backend:
+- Spring Boot
+- WebSocket (STOMP + SockJS)
+
+Database:
+- MongoDB Atlas
+
+Deployment:
+- Render (Backend)
+- Vercel (Frontend)
 
 ---
 
@@ -73,18 +59,49 @@ The Collaborative Study Room Platform allows users to create virtual study space
 
 ## 🔐 Environment Variables
 
-To run this project locally, you will need to configure your environment variables. 
+### Backend (.env in /backend)
 
-**Backend** (Create a `.env` file in the `backend/` directory):
-```env
-MONGODB_URI=your_mongodb_atlas_uri
-JWT_SECRET=your_secret_key
-```
+MONGODB_URI=your_mongodb_atlas_uri  
+JWT_SECRET=your_secure_random_secret  
+FRONTEND_URL=https://study-room-focus-flow.vercel.app  
 
-**Frontend** (Create a `.env` file in the `frontend/` directory):
-```env
-VITE_API_URL=http://localhost:8080/api
-```
+---
+
+### Frontend (.env in /frontend)
+
+For LOCAL development:
+
+VITE_API_URL=http://localhost:8080/api  
+
+For PRODUCTION (Vercel):
+
+VITE_API_URL=https://studyroom-focusflow-1.onrender.com/api  
+
+IMPORTANT:
+- Do NOT hardcode values in code
+- Always use environment variables
+
+---
+
+## 🚀 Deployment
+
+### Backend (Render)
+
+- Connect GitHub repo
+- Add environment variables:
+  - MONGODB_URI
+  - JWT_SECRET
+  - FRONTEND_URL
+- Deploy service
+
+---
+
+### Frontend (Vercel)
+
+- Import GitHub repo
+- Set environment variable:
+  - VITE_API_URL = https://studyroom-focusflow-1.onrender.com/api
+- Deploy
 
 ---
 
