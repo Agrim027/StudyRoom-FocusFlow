@@ -10,37 +10,29 @@ import React, { useEffect, useState } from 'react';
  * @param {Object} props.session - The session object containing startTime
  */
 const ParticipantCard = ({ username, session }) => {
-  const [duration, setDuration] = useState('00:00:00');
+  const [seconds, setSeconds] = useState(0);
 
   useEffect(() => {
-    // Start a local timer to update the duration every second
-    const timer = setInterval(() => {
-      setDuration(formatDuration(session.startTime));
+    const interval = setInterval(() => {
+      setSeconds(prev => {
+        console.log("Timer:", prev);
+        return prev + 1;
+      });
     }, 1000);
 
-    // Initial calculation
-    setDuration(formatDuration(session.startTime));
+    return () => clearInterval(interval);
+  }, []);
 
-    return () => clearInterval(timer);
-  }, [session.startTime]);
+  const formatTime = (totalSeconds) => {
+    const hrs = Math.floor(totalSeconds / 3600);
+    const mins = Math.floor((totalSeconds % 3600) / 60);
+    const secs = totalSeconds % 60;
 
-  const formatDuration = (startTimeIso) => {
-    if (!startTimeIso) return '00:00:00';
-    
-    const start = new Date(startTimeIso).getTime();
-    const now = new Date().getTime();
-    const elapsedMs = Math.max(0, now - start);
-    
-    // Stop at 5 hours 30 minutes
-    const maxDurationMs = (5 * 3600 * 1000) + (30 * 60 * 1000);
-    const cappedElapsedMs = Math.min(elapsedMs, maxDurationMs);
-    
-    const diffSeconds = Math.floor(cappedElapsedMs / 1000);
-    const h = Math.floor(diffSeconds / 3600).toString().padStart(2, '0');
-    const m = Math.floor((diffSeconds % 3600) / 60).toString().padStart(2, '0');
-    const s = (diffSeconds % 60).toString().padStart(2, '0');
-    
-    return `${h}:${m}:${s}`;
+    return [
+      hrs.toString().padStart(2, "0"),
+      mins.toString().padStart(2, "0"),
+      secs.toString().padStart(2, "0")
+    ].join(":");
   };
 
   return (
@@ -55,7 +47,7 @@ const ParticipantCard = ({ username, session }) => {
       </div>
       <h3 className="font-bold text-aurora-text mb-2 z-10 tracking-wide text-lg">{username}</h3>
       <div className="font-mono text-4xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-aurora-primary to-[#8A73E6] tracking-wider z-10 drop-shadow-md">
-        {duration}
+        {formatTime(seconds)}
       </div>
       <div className="mt-4 flex items-center bg-aurora-primary/10 px-3 py-1 rounded-full border border-aurora-primary/20 z-10">
         <span className="relative flex h-2.5 w-2.5 mr-2">
