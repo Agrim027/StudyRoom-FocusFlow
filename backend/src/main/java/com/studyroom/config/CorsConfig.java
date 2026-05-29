@@ -22,12 +22,19 @@ public class CorsConfig {
         // 1. Allow credentials (required for JWT authentication)
         config.setAllowCredentials(true);
         
-        // 2. Allow ONLY the specified frontend domain. 
-        // We strip any trailing slashes to ensure exact origin matching.
-        String cleanFrontendUrl = frontendUrl != null && frontendUrl.endsWith("/") 
-                ? frontendUrl.substring(0, frontendUrl.length() - 1) 
-                : frontendUrl;
-        config.setAllowedOrigins(Arrays.asList(cleanFrontendUrl));
+        // We strip any trailing slashes to ensure exact origin matching, and support comma-separated lists.
+        if (frontendUrl != null) {
+            String[] urls = frontendUrl.split(",");
+            java.util.List<String> allowedOrigins = new java.util.ArrayList<>();
+            for (String url : urls) {
+                String cleanUrl = url.trim();
+                if (cleanUrl.endsWith("/")) {
+                    cleanUrl = cleanUrl.substring(0, cleanUrl.length() - 1);
+                }
+                allowedOrigins.add(cleanUrl);
+            }
+            config.setAllowedOrigins(allowedOrigins);
+        }
         
         // 3. Ensure compatibility with Preflight OPTIONS requests and required headers
         config.setAllowedHeaders(Arrays.asList(
