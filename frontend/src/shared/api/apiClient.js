@@ -1,7 +1,11 @@
 import axios from 'axios';
 import useAuthStore from '../../store/authStore';
 
-const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:8080/api';
+const API_URL = import.meta.env.VITE_API_URL;
+
+if (!API_URL) {
+  console.warn("VITE_API_URL environment variable is missing! API calls may fail.");
+}
 
 /**
  * Configured Axios instance with base URL and interceptors.
@@ -18,6 +22,21 @@ apiClient.interceptors.request.use((config) => {
   }
   return config;
 });
+
+// Response interceptor to handle 401/403 errors globally
+apiClient.interceptors.response.use(
+  (response) => response,
+  (error) => {
+    if (error.response && (error.response.status === 401 || error.response.status === 403)) {
+      const authStore = useAuthStore.getState();
+      if (authStore.user) {
+        authStore.logout();
+        window.location.href = '/login';
+      }
+    }
+    return Promise.reject(error);
+  }
+);
 
 /**
  * Authentication related API calls

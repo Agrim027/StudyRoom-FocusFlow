@@ -65,11 +65,19 @@ const FocusZonePage = () => {
    * Initializes and configures the STOMP WebSocket client
    */
   const establishWebSocketConnection = () => {
-    const wsUrl = import.meta.env.VITE_WS_URL || 'http://localhost:8080/ws';
+    const wsUrl = import.meta.env.VITE_WS_URL;
+    if (!wsUrl) {
+      console.warn("VITE_WS_URL environment variable is missing!");
+    }
+    
+    if (import.meta.env.PROD && wsUrl && !wsUrl.startsWith('https://')) {
+      console.warn("WebSocket URL should start with https:// when using SockJS in production!");
+    }
+
     const socket = new SockJS(wsUrl);
     const client = new Client({
       webSocketFactory: () => socket,
-      debug: (str) => console.log(str), // Remove or set to null in true production
+      debug: import.meta.env.PROD ? null : (str) => console.log(str), // Disable in production
       reconnectDelay: 5000,
       heartbeatIncoming: 4000,
       heartbeatOutgoing: 4000,

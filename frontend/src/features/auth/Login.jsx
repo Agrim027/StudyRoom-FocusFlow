@@ -33,7 +33,8 @@ const Login = () => {
       // Redirect to dashboard
       navigate('/');
     } catch (err) {
-      setLoginError('Invalid credentials. Please try again.');
+      const errorMessage = err.response?.data?.message || err.response?.data?.error || 'Invalid credentials. Please try again.';
+      setLoginError(errorMessage);
     }
   };
 
