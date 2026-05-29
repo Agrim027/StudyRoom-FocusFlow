@@ -146,8 +146,12 @@ const FocusZonePage = () => {
         replyToSender: replyTo ? replyTo.sender : null,
         replyToContent: replyTo ? replyTo.content : null
       };
+
+      console.log("Sending message:", chatMessage);
+      console.log("STOMP connected:", stompClientRef.current.connected);
+
       stompClientRef.current.publish({
-        destination: `/app/chat.sendMessage/${zoneId}`,
+        destination: "/app/chat.sendMessage",
         body: JSON.stringify(chatMessage),
       });
       setChatInput('');

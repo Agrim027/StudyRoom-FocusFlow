@@ -134,7 +134,8 @@ const LiveChatBox = ({
             }}
           />
           <button
-            type="submit"
+            type="button"
+            onClick={onSendMessage}
             disabled={!inputMessage.trim()}
             className="shrink-0 h-[46px] w-[46px] flex items-center justify-center bg-gradient-to-r from-aurora-primary to-[#8A73E6] hover:from-aurora-primary-hover hover:to-aurora-primary text-white rounded-xl shadow-[0_0_10px_rgba(110,86,207,0.4)] disabled:opacity-50 disabled:shadow-none transition-all"
           >
