@@ -60,6 +60,7 @@ public class WebSecurityConfig {
                     .requestMatchers("/api/auth/**").permitAll()
                     .requestMatchers("/error").permitAll()
                     .requestMatchers("/ws/**").permitAll()
+                    .requestMatchers("/").permitAll()
                     .anyRequest().authenticated()
             );
 
