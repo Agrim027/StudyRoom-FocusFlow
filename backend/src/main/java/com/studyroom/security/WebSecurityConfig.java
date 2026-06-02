@@ -61,6 +61,7 @@ public class WebSecurityConfig {
                     .requestMatchers("/error").permitAll()
                     .requestMatchers("/ws/**").permitAll()
                     .requestMatchers("/").permitAll()
+                    .requestMatchers("/favicon.ico").permitAll()
                     .anyRequest().authenticated()
             );
 
